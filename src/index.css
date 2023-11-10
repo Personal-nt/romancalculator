@@ -2,15 +2,56 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Default light mode styles */
-.bg-light {
-    background-color: #f7fafc; /* Replace with your light mode background color */
+
+*{
+    font-family: 'Inter', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+/* Apply styles to the container */
+.prose {
+    max-width: 65ch; /* You can adjust the maximum width as needed */
+    margin-left: auto;
+    margin-right: auto;
   }
   
-  /* Dark mode styles */
-  @media (prefers-color-scheme: dark) {
-    .bg-light {
-      background-color: #1a202c; /* Replace with your dark mode background color */
-    }
+  /* Heading 1 */
+  h1 {
+    font-size: 2.25rem; /* Equivalent to text-4xl in Tailwind */
+    font-weight: 600; /* Equivalent to font-semibold in Tailwind */
+    margin-bottom: 1rem; /* Equivalent to mb-4 in Tailwind */
+  }
+  
+  /* Heading 2 */
+  h2 {
+    font-size: 1.875rem; /* Equivalent to text-3xl in Tailwind */
+    font-weight: 600; /* Equivalent to font-semibold in Tailwind */
+    margin-bottom: 1rem; /* Equivalent to mb-4 in Tailwind */
+  }
+  
+  /* Heading 3 */
+  h3 {
+    font-size: 1.5rem; /* Equivalent to text-2xl in Tailwind */
+    font-weight: 600; /* Equivalent to font-semibold in Tailwind */
+    margin-bottom: 0.75rem; /* Equivalent to mb-3 in Tailwind */
+  }
+  
+  /* Paragraph */
+  p {
+    font-size: 1.125rem; /* Equivalent to text-lg in Tailwind */
+    line-height: 1.625; /* Equivalent to leading-relaxed in Tailwind */
+    margin-bottom: 1rem; /* Equivalent to mb-4 in Tailwind */
+  }
+  
+  /* Link */
+  a {
+    color: #3b82f6; /* Equivalent to text-blue-500 in Tailwind */
+    text-decoration: none;
+    transition: text-decoration 0.2s ease-in-out;
+  }
+  
+  /* Link Hover (Underline on Hover) */
+  a:hover {
+    text-decoration: underline; /* Equivalent to hover:underline in Tailwind */
   }
   

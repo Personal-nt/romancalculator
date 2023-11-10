@@ -87,14 +87,14 @@ function Calculator() {
     const romanNumber = numberToRoman(test)
 
     return (
-        // <div className="flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <div className="flex h-screen flex-col items-center justify-center bg-light">
-            <div className=" w-80 rounded-lg bg-white p-12 text-teal-400 shadow-md dark:bg-gray-800">
-                <div className="border-b border-gray-200 pb-4 dark:border-gray-700">
-                    <div className="mb-2 text-right text-3xl font-bold text-gray-500 dark:text-gray-300">
+        <div className="flex h-screen flex-col items-center justify-center bg-gray-900">
+          <h3 className=" mb-2 text-teal-400 font-bold">ROMAN CALCULATOR</h3>
+            <div className=" w-80 rounded-lg p-12 text-teal-400 shadow-md bg-gray-800">
+                <div className="border-b pb-4 border-gray-700">
+                    <div className="mb-2 text-right text-3xl font-bold  text-gray-300">
                         {romanNumber}
                     </div>
-                    <div className="text-right text-xl text-gray-400 dark:text-gray-600">
+                    <div className="text-right text-xl text-gray-600">
                         {total}
                     </div>
                 </div>
@@ -125,13 +125,13 @@ function Calculator() {
                     </button>
                     <button
                         onClick={() => handleOperation(8, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition transition-transform duration-300 duration-75 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         VIII
                     </button>
                     <button
                         onClick={() => handleOperation(9, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition transition-transform duration-300 duration-75 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         IX
                     </button>
