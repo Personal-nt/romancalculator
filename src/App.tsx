@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react'
-import { Calc } from './utils/calc'
-// import ButtonWrapper from "./components/ButtonWrapper";
+import { useState } from 'react'
 
 function Calculator() {
     const [total, setTotal] = useState(0)
     const [current, setCurrent] = useState<any[]>([])
-    const [operation, setOperation] = useState<any[]>([])
     const [operator, setOperator] = useState('')
-    // const [clear, setClear] = useState(false);
+
 
     const handleOperation = (input: string | number, operator?: string) => {
         if (typeof input === 'number') {
@@ -30,7 +27,6 @@ function Calculator() {
         setTotal(0)
         setCurrent([])
         setOperator('')
-        setOperation([])
     }
 
     const calculateResult = (currentNum: number, operator: string) => {
