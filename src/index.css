@@ -1,3 +1,16 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+/* Default light mode styles */
+.bg-light {
+    background-color: #f7fafc; /* Replace with your light mode background color */
+  }
+  
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    .bg-light {
+      background-color: #1a202c; /* Replace with your dark mode background color */
+    }
+  }
+  

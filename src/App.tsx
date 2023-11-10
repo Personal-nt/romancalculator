@@ -5,7 +5,6 @@ function Calculator() {
     const [current, setCurrent] = useState<any[]>([])
     const [operator, setOperator] = useState('')
 
-
     const handleOperation = (input: string | number, operator?: string) => {
         if (typeof input === 'number') {
             if (operator === '') {
@@ -16,7 +15,7 @@ function Calculator() {
             }
         }
         if (typeof input === 'string') {
-          if(current.length === 0) return
+            if (current.length === 0) return
             setOperator(input)
             const currentNum = current.join('')
             calculateResult(parseInt(currentNum), operator ? operator : input)
@@ -88,7 +87,8 @@ function Calculator() {
     const romanNumber = numberToRoman(test)
 
     return (
-        <div className="flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
+        // <div className="flex h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="flex h-screen flex-col items-center justify-center bg-light">
             <div className=" w-80 rounded-lg bg-white p-12 text-teal-400 shadow-md dark:bg-gray-800">
                 <div className="border-b border-gray-200 pb-4 dark:border-gray-700">
                     <div className="mb-2 text-right text-3xl font-bold text-gray-500 dark:text-gray-300">
@@ -101,37 +101,37 @@ function Calculator() {
                 <div className="mt-6 grid grid-cols-4 gap-4">
                     <button
                         onClick={() => clearTotal()}
-                        className="p-2 col-span-2 rounded-lg bg-pink-900 text-white shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="col-span-2 rounded-lg bg-pink-900 p-2 text-white shadow-lg transition duration-300 ease-in-out hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         Clear 🗑️
                     </button>
                     <button
                         onClick={() => handleOperation('/', operator)}
-                        className="rounded-lg bg-teal-900 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="rounded-lg bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         /
                     </button>
                     <button
                         onClick={() => handleOperation('*', operator)}
-                        className="rounded-lg bg-teal-900 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="rounded-lg bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         x
                     </button>
                     <button
                         onClick={() => handleOperation(7, operator)}
-                        className="p-2 scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 p-2 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         VII
                     </button>
                     <button
                         onClick={() => handleOperation(8, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 transition-transform duration-75 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition transition-transform duration-300 duration-75 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         VIII
                     </button>
                     <button
                         onClick={() => handleOperation(9, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 transition-transform duration-75 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition transition-transform duration-300 duration-75 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         IX
                     </button>
@@ -143,19 +143,19 @@ function Calculator() {
                     </button>
                     <button
                         onClick={() => handleOperation(4, operator)}
-                        className="p-2 scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 p-2 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         IV
                     </button>
                     <button
                         onClick={() => handleOperation(5, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         V
                     </button>
                     <button
                         onClick={() => handleOperation(6, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         VI
                     </button>
@@ -167,28 +167,29 @@ function Calculator() {
                     </button>
                     <button
                         onClick={() => handleOperation(1, operator)}
-                        className="p-2 scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 p-2 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         I
                     </button>
                     <button
                         onClick={() => handleOperation(2, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         II
                     </button>
                     <button
                         onClick={() => handleOperation(3, operator)}
-                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]"
+                        className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         III
                     </button>
                     <button className="row-span-2 rounded-lg bg-teal-800">
                         =
                     </button>
-                    <button disabled className="p-2 col-span-3 scale-[1] rounded-lg bg-gray-600 bg-opacity-30 hover:scale-[103%] hover:bg-opacity-50 shadow-lg focus:outline-none hover:shadow-xl transition duration-300 ease-in-out active:shadow-inner active:translate-y-[2px]">
-                        
-                    </button>
+                    <button
+                        disabled
+                        className="col-span-3 scale-[1] rounded-lg bg-gray-600 bg-opacity-30 p-2 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
+                    ></button>
                     <button disabled className="rounded-lg"></button>
                 </div>
             </div>
