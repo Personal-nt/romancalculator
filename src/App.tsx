@@ -8,9 +8,12 @@ function Calculator() {
     const [operator, setOperator] = useState('')
 
     const [totalCalc, setTotalCalc] = useState(0)
+    const [tempOperation, setTempOperation] = useState(0)
     const calc = new Calc(0, 0)
 
     const handleNumber = (input: string) => {
+      setTempOperation(0)
+      setTempOperation(parseInt(input))
         if (
             addend === '0' &&
             summand === '0' &&
@@ -63,7 +66,7 @@ function Calculator() {
         } else if (addend !== '0' && summand !== '0' && operator !== '') {
             setSummand((prev) => (prev += input))
         }
-    }
+      }
 
     const handleOperator = (input: string) => {
         if (operator === '') {
@@ -84,7 +87,7 @@ function Calculator() {
             addend !== '0' &&
             summand !== '0' &&
             operator !== '' &&
-            totalCalc > 0
+            totalCalc >= 0
         ) {
             calculateResult(parseInt(addend), parseInt(summand), operator)
             setAddend(calc.getTotal().toString())
@@ -95,6 +98,7 @@ function Calculator() {
     }
 
     const handleEqaulsTo = () => {
+      setTempOperation(0)
         if (addend !== '' && summand !== '' && operator !== '') {
             calculateResult(parseInt(addend), parseInt(summand), operator)
             setAddend(calc.getTotal().toString())
@@ -187,13 +191,15 @@ function Calculator() {
             <h3 className="mb-2 text-lg font-bold text-teal-400">
                 NICOLA's ROMAN CALCULATOR
             </h3>
-            <div className=" w-80 rounded-lg bg-gray-800 p-12 text-teal-400 shadow-md">
+            <div className="w-80 rounded-lg bg-gray-800 p-8 text-teal-400 shadow-md">
                 <div className="border-b border-gray-700 pb-4">
                     <div className="mb-2 text-right text-3xl font-bold  text-gray-300">
                         {romanNumber}
                     </div>
                     <div className="text-right text-xl text-gray-600">
-                        {totalCalc.toFixed(0)}
+                        {/* {totalCalc.toFixed(0)} */}
+
+                        {tempOperation > 0 ? tempOperation : totalCalc.toFixed(0)}
                     </div>
                 </div>
                 <div className="mt-6 grid grid-cols-4 gap-4">
@@ -205,13 +211,13 @@ function Calculator() {
                     </button>
                     <button
                         onClick={() => handleOperator('/')}
-                        className="rounded-lg bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
+                        className={`text-2xl rounded-lg ${operator === '/' ? 'border border-teal-600' : ''} bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl hover:bg-teal-800 focus:outline-none active:translate-y-[2px] active:shadow-inner`}
                     >
                         /
                     </button>
                     <button
                         onClick={() => handleOperator('*')}
-                        className="rounded-lg bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
+                        className={`text-2xl rounded-lg ${operator === '*' ? 'border border-teal-600' : ''} bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl hover:bg-teal-800 focus:outline-none active:translate-y-[2px] active:shadow-inner`}
                     >
                         x
                     </button>
@@ -235,7 +241,7 @@ function Calculator() {
                     </button>
                     <button
                         onClick={() => handleOperator('-')}
-                        className="rounded-lg bg-teal-900"
+                        className={`text-2xl rounded-lg ${operator === '-' ? 'border border-teal-600' : ''} bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl hover:bg-teal-800 focus:outline-none active:translate-y-[2px] active:shadow-inner`}
                     >
                         -
                     </button>
@@ -259,7 +265,7 @@ function Calculator() {
                     </button>
                     <button
                         onClick={() => handleOperator('+')}
-                        className="rounded-lg bg-teal-900"
+                        className={`text-2xl rounded-lg ${operator === '+' ? 'border border-teal-600' : ''} bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl hover:bg-teal-800 focus:outline-none active:translate-y-[2px] active:shadow-inner`}
                     >
                         +
                     </button>
@@ -283,7 +289,7 @@ function Calculator() {
                     </button>
                     <button
                         onClick={() => handleEqaulsTo()}
-                        className="row-span-2 rounded-lg bg-teal-800"
+                        className={`text-2xl rounded-lg row-span-2 bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl hover:bg-teal-800 focus:outline-none active:translate-y-[2px] active:shadow-inner`}
                     >
                         =
                     </button>
@@ -295,7 +301,7 @@ function Calculator() {
                 </div>
             </div>
             <small className="mt-6 w-[300px] text-center text-teal-400 text-opacity-40">
-                Addendly this calculator doesnt work following the PEMDAS model
+                Currently, this calculator doesnt work following the PEMDAS model
             </small>
         </div>
     )
