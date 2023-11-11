@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Calc from './utils/calc'
 
 function Calculator() {
-    const [total, setTotal] = useState(0)
+    const [total] = useState(0)
     const [addend, setAddend] = useState('0')
     const [summand, setSummand] = useState('0')
     const [operator, setOperator] = useState('')
@@ -17,7 +17,7 @@ function Calculator() {
             operator === '' &&
             totalCalc === 0
         ) {
-            setAddend((prev) => (prev = input))
+            setAddend(input)
         } else if (
             addend === '0' &&
             summand === '0' &&
@@ -38,21 +38,21 @@ function Calculator() {
             operator === '' &&
             totalCalc > 0
         ) {
-            setSummand((prev) => (prev = input))
+            setSummand(input)
         } else if (
             addend !== '0' &&
             summand === '0' &&
             operator !== '' &&
             totalCalc === 0
         ) {
-            setSummand((prev) => (prev = input))
+            setSummand(input)
         } else if (
             addend !== '0' &&
             summand === '0' &&
             operator !== '' &&
             totalCalc > 0
         ) {
-            setSummand((prev) => (prev = input))
+            setSummand(input)
         } else if (
             addend !== '0' &&
             summand !== '0' &&
@@ -67,14 +67,14 @@ function Calculator() {
 
     const handleOperator = (input: string) => {
         if (operator === '') {
-            setOperator((prev) => (prev = input))
+            setOperator(input)
         } else if (
             addend !== '0' &&
             summand !== '0' &&
             operator === '' &&
             totalCalc > 0
         ) {
-            setOperator((prev) => (prev = input))
+            setOperator(input)
             calculateResult(parseInt(addend), parseInt(summand), operator)
             setAddend(calc.getTotal().toString())
             setSummand('0')
@@ -141,7 +141,7 @@ function Calculator() {
             default:
                 console.log('error')
         }
-        setAddend((prev) => (prev = total.toString()))
+        setAddend(total.toString())
     }
 
     function numberToRoman(num: number): string {
