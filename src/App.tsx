@@ -1,57 +1,153 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Calc from './utils/calc'
 
 function Calculator() {
     const [total, setTotal] = useState(0)
-    const [current, setCurrent] = useState<any[]>([])
+    const [addend, setAddend] = useState('0')
+    const [summand, setSummand] = useState('0')
     const [operator, setOperator] = useState('')
 
-    const handleOperation = (input: string | number, operator?: string) => {
-        if (typeof input === 'number') {
-            if (operator === '') {
-                // setTotal((prevTotal) => prevTotal + input);
-                setCurrent((prev) => [...prev, input])
-            } else {
-                setCurrent((prev) => [...prev, input])
-            }
-        }
-        if (typeof input === 'string') {
-            if (current.length === 0) return
-            setOperator(input)
-            const currentNum = current.join('')
-            calculateResult(parseInt(currentNum), operator ? operator : input)
+    const [totalCalc, setTotalCalc] = useState(0)
+    const calc = new Calc(0, 0)
+
+    const handleNumber = (input: string) => {
+        if (
+            addend === '0' &&
+            summand === '0' &&
+            operator === '' &&
+            totalCalc === 0
+        ) {
+            setAddend((prev) => (prev = input))
+        } else if (
+            addend === '0' &&
+            summand === '0' &&
+            operator !== '' &&
+            totalCalc > 0
+        ) {
+            setAddend(totalCalc.toString())
+        } else if (
+            addend !== '0' &&
+            summand === '0' &&
+            operator === '' &&
+            totalCalc === 0
+        ) {
+            setAddend((prev) => (prev += input))
+        } else if (
+            addend !== '0' &&
+            summand === '0' &&
+            operator === '' &&
+            totalCalc > 0
+        ) {
+            setSummand((prev) => (prev = input))
+        } else if (
+            addend !== '0' &&
+            summand === '0' &&
+            operator !== '' &&
+            totalCalc === 0
+        ) {
+            setSummand((prev) => (prev = input))
+        } else if (
+            addend !== '0' &&
+            summand === '0' &&
+            operator !== '' &&
+            totalCalc > 0
+        ) {
+            setSummand((prev) => (prev = input))
+        } else if (
+            addend !== '0' &&
+            summand !== '0' &&
+            operator === '' &&
+            totalCalc > 0
+        ) {
+            setSummand((prev) => (prev += input))
+        } else if (addend !== '0' && summand !== '0' && operator !== '') {
+            setSummand((prev) => (prev += input))
         }
     }
+
+    const handleOperator = (input: string) => {
+        if (operator === '') {
+            setOperator((prev) => (prev = input))
+        } else if (
+            addend !== '0' &&
+            summand !== '0' &&
+            operator === '' &&
+            totalCalc > 0
+        ) {
+            setOperator((prev) => (prev = input))
+            calculateResult(parseInt(addend), parseInt(summand), operator)
+            setAddend(calc.getTotal().toString())
+            setSummand('0')
+            setOperator('')
+            setTotalCalc(calc.getTotal())
+        } else if (
+            addend !== '0' &&
+            summand !== '0' &&
+            operator !== '' &&
+            totalCalc > 0
+        ) {
+            calculateResult(parseInt(addend), parseInt(summand), operator)
+            setAddend(calc.getTotal().toString())
+            setSummand('0')
+            setOperator('')
+            setTotalCalc(calc.getTotal())
+        }
+    }
+
+    const handleEqaulsTo = () => {
+        if (addend !== '' && summand !== '' && operator !== '') {
+            calculateResult(parseInt(addend), parseInt(summand), operator)
+            setAddend(calc.getTotal().toString())
+            setSummand('0')
+            setOperator('')
+            setTotalCalc(calc.getTotal())
+        } else {
+            return
+        }
+    }
+
+    useEffect(() => {
+        console.log('addend useEffect: ', addend)
+        console.log('summand useEffect: ', summand)
+        console.log('total useEffect: ', totalCalc)
+        console.log('operator useEffect: ', operator)
+    }, [addend, summand, totalCalc, operator])
 
     const clearTotal = () => {
-        setTotal(0)
-        setCurrent([])
+        setTotalCalc(calc.getTotal())
+        setAddend('0')
+        setSummand('0')
         setOperator('')
     }
 
-    const calculateResult = (currentNum: number, operator: string) => {
+    const calculateResult = (
+        addendNum: number,
+        summandNum: number,
+        operator: string,
+    ) => {
         switch (operator) {
             case '+':
-                setTotal((prevTotal) => prevTotal + currentNum)
+                calc.add(addendNum, summandNum)
                 break
             case '-':
-                setTotal((prevTotal) => prevTotal - currentNum)
+                calc.subs(addendNum, summandNum)
                 break
             case '*':
-                setTotal((prevTotal) => prevTotal * currentNum)
+                calc.mult(addendNum, summandNum)
                 break
             case '/':
-                setTotal((prevTotal) => prevTotal / currentNum)
+                calc.div(addendNum, summandNum)
                 break
             default:
-                setTotal(currentNum) // If no operator is provided, set the current number as the total.
+                console.log('error')
         }
-        setCurrent([])
-        setOperator('')
+        setAddend((prev) => (prev = total.toString()))
     }
 
     function numberToRoman(num: number): string {
         if (isNaN(num) || num < 0 || num >= 4000) {
-            throw new Error('Number out of range for Roman numerals (1-3999)')
+            // throw new Error('Number out of range for Roman numerals (1-3999)')
+            return ''
         }
 
         const romanNumerals: [string, number][] = [
@@ -82,20 +178,22 @@ function Calculator() {
 
         return result
     }
-    const test = total
+    const tc = totalCalc
 
-    const romanNumber = numberToRoman(test)
+    const romanNumber = numberToRoman(tc)
 
     return (
         <div className="flex h-screen flex-col items-center justify-center bg-gray-900">
-          <h3 className=" mb-2 text-teal-400 font-bold">ROMAN CALCULATOR</h3>
-            <div className=" w-80 rounded-lg p-12 text-teal-400 shadow-md bg-gray-800">
-                <div className="border-b pb-4 border-gray-700">
+            <h3 className="mb-2 text-lg font-bold text-teal-400">
+                NICOLA's ROMAN CALCULATOR
+            </h3>
+            <div className=" w-80 rounded-lg bg-gray-800 p-12 text-teal-400 shadow-md">
+                <div className="border-b border-gray-700 pb-4">
                     <div className="mb-2 text-right text-3xl font-bold  text-gray-300">
                         {romanNumber}
                     </div>
                     <div className="text-right text-xl text-gray-600">
-                        {total}
+                        {totalCalc.toFixed(0)}
                     </div>
                 </div>
                 <div className="mt-6 grid grid-cols-4 gap-4">
@@ -106,84 +204,87 @@ function Calculator() {
                         Clear 🗑️
                     </button>
                     <button
-                        onClick={() => handleOperation('/', operator)}
+                        onClick={() => handleOperator('/')}
                         className="rounded-lg bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         /
                     </button>
                     <button
-                        onClick={() => handleOperation('*', operator)}
+                        onClick={() => handleOperator('*')}
                         className="rounded-lg bg-teal-900 shadow-lg transition duration-300 ease-in-out hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         x
                     </button>
                     <button
-                        onClick={() => handleOperation(7, operator)}
+                        onClick={() => handleNumber('7')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 p-2 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         VII
                     </button>
                     <button
-                        onClick={() => handleOperation(8, operator)}
+                        onClick={() => handleNumber('8')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         VIII
                     </button>
                     <button
-                        onClick={() => handleOperation(9, operator)}
+                        onClick={() => handleNumber('9')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         IX
                     </button>
                     <button
-                        onClick={() => handleOperation('-', operator)}
+                        onClick={() => handleOperator('-')}
                         className="rounded-lg bg-teal-900"
                     >
                         -
                     </button>
                     <button
-                        onClick={() => handleOperation(4, operator)}
+                        onClick={() => handleNumber('4')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 p-2 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         IV
                     </button>
                     <button
-                        onClick={() => handleOperation(5, operator)}
+                        onClick={() => handleNumber('5')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         V
                     </button>
                     <button
-                        onClick={() => handleOperation(6, operator)}
+                        onClick={() => handleNumber('6')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         VI
                     </button>
                     <button
-                        onClick={() => handleOperation('+', operator)}
+                        onClick={() => handleOperator('+')}
                         className="rounded-lg bg-teal-900"
                     >
                         +
                     </button>
                     <button
-                        onClick={() => handleOperation(1, operator)}
+                        onClick={() => handleNumber('1')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 p-2 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         I
                     </button>
                     <button
-                        onClick={() => handleOperation(2, operator)}
+                        onClick={() => handleNumber('2')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         II
                     </button>
                     <button
-                        onClick={() => handleOperation(3, operator)}
+                        onClick={() => handleNumber('3')}
                         className="scale-[1] rounded-lg bg-gray-600 bg-opacity-30 shadow-lg transition duration-300 ease-in-out hover:scale-[103%] hover:bg-opacity-50 hover:shadow-xl focus:outline-none active:translate-y-[2px] active:shadow-inner"
                     >
                         III
                     </button>
-                    <button className="row-span-2 rounded-lg bg-teal-800">
+                    <button
+                        onClick={() => handleEqaulsTo()}
+                        className="row-span-2 rounded-lg bg-teal-800"
+                    >
                         =
                     </button>
                     <button
@@ -194,7 +295,7 @@ function Calculator() {
                 </div>
             </div>
             <small className="mt-6 w-[300px] text-center text-teal-400 text-opacity-40">
-                Currently this calculator doesnt work following the PEMDAS model
+                Addendly this calculator doesnt work following the PEMDAS model
             </small>
         </div>
     )
