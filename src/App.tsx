@@ -193,11 +193,11 @@ function Calculator() {
                     NICO's ROMAN CALCULATOR
                 </h3>
                 <div className="h-[80%] w-screen rounded-lg bg-gray-800 p-4 text-teal-400 shadow-md md:h-auto md:w-80 md:p-8">
-                    <div className="h-[100px] border-b border-gray-700 pb-0 md:pb-4">
-                        <div className="h-2/3 flex justify-end items-center text-right text-4xl pr-3 font-bold text-gray-300">
+                    <div className="h-[130px] border-b border-gray-700 pb-0 md:pb-4">
+                        <div className="h-2/3 flex justify-end items-center text-right text-6xl md:text-4xl pr-3 font-bold text-gray-300">
                             {romanNumber}
                         </div>
-                        <div className="text-right text-xl text-gray-600 pr-3 flex justify-end items-center">
+                        <div className="text-right text-4xl md:text-xl text-gray-600 pr-3 flex justify-end items-center">
                             {tempOperation > 0
                                 ? tempOperation
                                 : totalCalc.toFixed(0)}
