@@ -189,7 +189,7 @@ function Calculator() {
     return (
         <div className="flex h-screen flex-col items-center justify-center bg-gray-900">
             <h3 className="mb-2 text-lg font-bold text-teal-400">
-                NICOLA's ROMAN CALCULATOR
+                NICO's ROMAN CALCULATOR
             </h3>
             <div className="w-80 rounded-lg bg-gray-800 p-8 text-teal-400 shadow-md">
                 <div className="border-b border-gray-700 pb-4">
